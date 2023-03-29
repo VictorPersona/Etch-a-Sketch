@@ -2,13 +2,15 @@ let board = document.querySelector(".board");
 board.style.gridTemplateColumns = "repeat(16, 1fr)";
 board.style.gridTemplateRows = "repeat(16, 1fr)";
 
-for (let i = 0; i < numGrid * numGrid; i++) {
-  let square = document.createElement("div");
-  square.classList.add("square")
-  square.style.backgroundColor = "white";
-  square.style.border = "1px solid black";
-  square.style.boxSizing = "border-box";
-  board.appendChild(square);
+function createGrid(numGrid = 16) {
+  for (let i = 0; i < numGrid * numGrid; i++) {
+    let square = document.createElement("div");
+    square.classList.add("square");
+    square.style.backgroundColor = "white";
+    square.style.border = "1px solid black";
+    square.style.boxSizing = "border-box";
+    board.appendChild(square);
+  }
 }
 
 let squares = document.querySelectorAll(".square");
@@ -31,7 +33,6 @@ function reload(square) {
   square.style.backgroundColor = "white";
 }
 
-
 function reloadButton() {
   squares.forEach((square) => {
     reload(square);
@@ -42,7 +43,9 @@ let reButton = document.querySelector("#reload-button");
 
 reButton.addEventListener("click", reloadButton);
 
-let gridButton = document.querySelector("#create-grid-button")
-gridButton.addEventListener("click", function(){
-  let numGrid = document.querySelector("#grid-size").value
-})
+let gridButton = document.querySelector("#create-grid-button");
+
+gridButton.addEventListener("click", function () {
+  let numGrid = document.querySelector("#grid-size").value;
+  createGrid(numGrid);
+});
