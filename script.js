@@ -2,6 +2,8 @@ let board = document.querySelector(".board");
 board.style.gridTemplateColumns = "repeat(16, 1fr)";
 board.style.gridTemplateRows = "repeat(16, 1fr)";
 
+let numGrid = 16; // define numGrid outside the event listeners
+
 function createGrid(numGrid) {
   board.innerHTML = ""; // clear the board before adding new squares
   board.style.gridTemplateColumns = `repeat(${numGrid}, 1fr)`;
@@ -28,26 +30,17 @@ function hoverColor(square) {
   });
 }
 
-function reload(square) {
-  square.removeEventListener("mouseover", hoverColor);
-  square.style.backgroundColor = "white";
-}
-
-function reloadButton() {
-  squares.forEach((square) => {
-    reload(square);
-  });
-}
-
 let reButton = document.querySelector("#reload-button");
 
-reButton.addEventListener("click", reloadButton);
+reButton.addEventListener("click", function() {
+  createGrid(numGrid);
+});
 
 let gridButton = document.querySelector("#create-grid-button");
 
 gridButton.addEventListener("click", function () {
-  let numGrid = document.querySelector("#grid-size").value;
+  numGrid = document.querySelector("#grid-size").value; // assign the input value to numGrid
   createGrid(numGrid);
 });
 
-createGrid(16)
+createGrid(numGrid);
